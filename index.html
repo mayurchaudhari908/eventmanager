@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KCE Event Hub</title>
     <style>
-        /* --- CSS VARIABLES (For easy Light/Dark Mode) --- */
+        /* Theme Variables */
         :root {
             --primary-color: #6366f1; 
             --primary-hover: #4f46e5;
@@ -18,7 +18,7 @@
             --shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        /* Dark Mode Variables */
+        /* Dark Mode */
         body.dark-mode {
             --bg-color: #111827;
             --nav-bg: #1f2937;
@@ -34,7 +34,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.3s, color 0.3s; /* Smooth dark mode transition */
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
@@ -43,7 +43,7 @@
             line-height: 1.6;
         }
 
-        /* Navigation (Sticky) */
+        /* Navbar */
         nav {
             background-color: var(--nav-bg);
             padding: 1rem 5%;
@@ -64,11 +64,10 @@
             gap: 10px;
         }
 
-        /* LOGO STYLE */
         .logo-img {
             height: 40px;
             width: auto;
-            border-radius: 50%; /* Optional: makes logo circular */
+            border-radius: 50%;
         }
 
         nav h1 {
@@ -83,7 +82,7 @@
             gap: 1rem;
         }
 
-        /* Live Search Bar */
+        /* Search input */
         #searchInput {
             padding: 8px 15px;
             border: 1px solid var(--border-color);
@@ -97,6 +96,7 @@
             border-color: var(--primary-color);
         }
 
+        /* Buttons */
         .btn-outline {
             background: transparent;
             color: var(--primary-color);
@@ -119,6 +119,18 @@
             cursor: pointer;
         }
 
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
         /* Hero Section */
         .hero {
             text-align: center;
@@ -126,7 +138,7 @@
             background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, var(--bg-color) 100%);
         }
 
-        /* Event Grid */
+        /* Layout Grid */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -135,11 +147,11 @@
 
         .grid {
             display: grid;
-            /* Change auto-fit to auto-fill right here 👇 */
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
         }
 
+        /* Event Cards */
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -163,19 +175,7 @@
         .card-title { font-size: 1.25rem; margin-bottom: 0.5rem; }
         .card-date { color: var(--primary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem; }
         
-        .btn {
-            display: inline-block;
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        /* Modals (Pop-ups) */
+        /* Modals */
         .modal-overlay {
             display: none; 
             position: fixed;
@@ -184,7 +184,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            backdrop-filter: blur(3px); /* Cool blur effect */
+            backdrop-filter: blur(3px);
         }
 
         .modal-box {
@@ -216,12 +216,12 @@
             border-radius: 6px;
         }
 
-        /* Toast Notification */
+        /* UI Notifications */
         .toast {
             position: fixed;
-            bottom: -100px; /* Hidden initially */
+            bottom: -100px;
             right: 20px;
-            background: #10b981; /* Success Green */
+            background: #10b981;
             color: white;
             padding: 15px 25px;
             border-radius: 8px;
@@ -229,18 +229,19 @@
             transition: bottom 0.4s ease;
             z-index: 2000;
         }
+        
         .toast.show { bottom: 20px; }
 
-        /* --- Scroll Animation Classes --- */
+        /* Animation States */
         .hidden-card {
             opacity: 0;
-            transform: translateY(50px); /* Pushes the card down 50 pixels */
-            transition: all 0.6s ease-out; /* Makes the movement smooth */
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
         }
 
         .show-card {
             opacity: 1;
-            transform: translateY(0); /* Brings it back to original position */
+            transform: translateY(0);
         }
 
     </style>
@@ -262,29 +263,28 @@
 
     <header class="hero">
         <h2 style="margin-bottom: 10px;">Discover Campus Events</h2>
-        <p>Find, register, and attend the best tech and cultural events at KCE-COEM,JALGAON .</p>
+        <p>Find, register, and attend the best tech and cultural events at KCE-COEM, JALGAON.</p>
     </header>
 
     <main class="container">
         <div class="grid" id="eventGrid">
            <article class="card hidden-card">
-                <img src= "techfest.jpeg" alt="Techno Storm 2K26" class="card-img">
+                <img src="techfest.jpeg" alt="Techno Storm 2K26" class="card-img">
                 <div class="card-content">
                     <h3 class="card-title">Techno Storm 2K26 -<br> UPCOMING 🕒 </h3>
                     <p class="card-date">📅 April 06, 2026</p>
                     <p style="margin-bottom: 1rem; color: var(--text-light);">We are excited to invite students from your college to participate in our National Level Technical Event 🚀</p>
-                    <button class="btn register-btn" data-event="Tech Hackathon 2026">Register Now </button>
+                    <button class="btn register-btn" data-event="Tech Hackathon 2026">Register Now</button>
                 </div>
             </article>
 
-
             <article class="card hidden-card">
-                <img src= "yuvotsav.jpeg" alt="Yuvotsav 2K26" class="card-img">
+                <img src="yuvotsav.jpeg" alt="Yuvotsav 2K26" class="card-img">
                 <div class="card-content">
                     <h3 class="card-title">Yuvotsav 2K26 -<br> ENDED 🚫</h3>
                     <p class="card-date">📅 March 09-12, 2026</p>
                     <p style="margin-bottom: 1rem; color: var(--text-light);">💫 Join us in the Upcoming Annual Carnival and stand a chance to win amazing prizes!</p>
-                    <button class="btn" style="background-color: #9ca3af; cursor: not-allowed;" disabled>Registration Closed !</button>
+                    <button class="btn" style="background-color: #9ca3af; cursor: not-allowed;" disabled>Registration Closed</button>
                 </div>
             </article>
 
@@ -294,7 +294,7 @@
                     <h3 class="card-title">Sports Carnival 2K26-<br> ENDED 🚫</h3>
                     <p class="card-date">📅 March 05-10, 2026</p>
                     <p style="margin-bottom: 1rem; color: var(--text-light);">🏅 Game On! You're Invited to Sports Carnival 2K26! Don't miss your chance to be a champion. Register now!</p>
-                    <button class="btn" style="background-color: #9ca3af; cursor: not-allowed;" disabled>Registration Closed !</button>
+                    <button class="btn" style="background-color: #9ca3af; cursor: not-allowed;" disabled>Registration Closed</button>
                 </div>
             </article>
         </div>
@@ -330,18 +330,18 @@
     <div id="toast" class="toast">Success Message Here</div>
 
     <script>
-        // --- Modal Logic ---
+        // Modal Controls
         function openModal(modalId) { document.getElementById(modalId).style.display = 'flex'; }
         function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
 
-        // Close if clicking outside the box
+        // Close on overlay click
         window.addEventListener('click', function(event) {
             if (event.target.classList.contains('modal-overlay')) {
                 event.target.style.display = 'none';
             }
         });
 
-        // Trigger Registration Modal
+        // Event listeners for modals
         document.querySelectorAll('.register-btn').forEach(button => {
             button.addEventListener('click', function() {
                 document.getElementById('eventNameDisplay').textContent = this.getAttribute('data-event');
@@ -349,46 +349,45 @@
             });
         });
 
-        // Trigger Login Modal
         document.getElementById('loginBtn').addEventListener('click', () => openModal('loginModal'));
 
-        // --- Toast Notification Logic ---
+        // Notification handler
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 3000); // Hide after 3 seconds
+            setTimeout(() => { toast.classList.remove('show'); }, 3000); 
         }
         
-       // --- Form Submissions with Google Sheets ---
+        // Google Sheets Form Integration
         document.getElementById('regForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop page from refreshing
+            e.preventDefault(); 
             
-            // 1. Change the button text so the user knows it's loading
+            // Loading state
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
             submitBtn.innerText = "Registering...";
             
-            // 2. PASTE YOUR GOOGLE WEB APP URL HERE 👇
+            // App Script Endpoint
             const scriptURL = 'https://script.google.com/macros/s/AKfycbwUm3P38C3S9PGupwAGe1u7pFtKI7JaWjjPbmJ3lGe4MI0Iwdxor4tTsExHywYhLbE7RA/exec'; 
             
-            // 3. Gather the data
+            // Construct payload
             const formData = new FormData();
             formData.append('EventName', document.getElementById('eventNameDisplay').innerText);
             formData.append('StudentName', document.getElementById('studentName').value);
             formData.append('StudentID', document.getElementById('studentID').value);
             formData.append('Email', document.getElementById('studentEmail').value);
 
-            // 4. Send the data to Google Sheets
+            // API Call
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
                     const name = document.getElementById('studentName').value;
                     showToast(`🎉 Registration successful for ${name}!`);
                     
-                    // Reset form and close modal
+                    // Cleanup UI
                     document.getElementById('regForm').reset();
                     closeModal('registrationModal');
-                    submitBtn.innerText = originalBtnText; // Reset button text
+                    submitBtn.innerText = originalBtnText;
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
@@ -404,7 +403,7 @@
             closeModal('loginModal');
         });
 
-        // --- Live Search Filter ---
+        // Search Filter
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const cards = document.querySelectorAll('.card');
@@ -419,10 +418,10 @@
             });
         });
 
-        // --- Dark Mode Toggle ---
+        // Theme Initialization
         const themeBtn = document.getElementById('themeBtn');
         
-        // Check if user previously saved dark mode
+        // Load persisted theme
         if(localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
             themeBtn.textContent = '☀️';
@@ -439,22 +438,19 @@
             }
         });
 
-        // --- Scroll Reveal Animation ---
-        // 1. Create the observer
+        // Intersection Observer for scroll animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
-                // If the card is in the viewport, add the 'show-card' class
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show-card');
-                    // Optional: Stop observing once it's revealed so it doesn't animate every time you scroll up and down
                     observer.unobserve(entry.target); 
                 }
             });
         }, {
-            threshold: 0.1 // Triggers when 10% of the card is visible
+            threshold: 0.1 
         });
 
-        // 2. Tell the observer to watch all elements with the 'hidden-card' class
+        // Initialize observer on cards
         const hiddenElements = document.querySelectorAll('.hidden-card');
         hiddenElements.forEach((el) => observer.observe(el));
 
