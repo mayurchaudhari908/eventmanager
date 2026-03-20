@@ -461,6 +461,48 @@
         const hiddenElements = document.querySelectorAll('.hidden-card');
         hiddenElements.forEach((el) => observer.observe(el));
 
+        // Google Calendar Generator
+        document.querySelectorAll('.cal-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const title = encodeURIComponent(this.getAttribute('data-title'));
+                const start = this.getAttribute('data-start');
+                const end = this.getAttribute('data-end');
+                const desc = encodeURIComponent(this.getAttribute('data-desc'));
+                const loc = encodeURIComponent(this.getAttribute('data-loc'));
+                
+                const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${desc}&location=${loc}`;
+                
+                window.open(calUrl, '_blank'); // Opens in a new tab
+            });
+        });
+
+        // Share Event Logic (Web Share API)
+        document.querySelectorAll('.share-btn').forEach(button => {
+            button.addEventListener('click', async function() {
+                const title = this.getAttribute('data-title');
+                const date = this.getAttribute('data-date');
+                const desc = this.getAttribute('data-desc');
+                const websiteUrl = window.location.href; 
+                
+                const shareMessage = `🚀 Join me at ${title}!\n📅 ${date}\nℹ️ ${desc}\n\nRegister here: ${websiteUrl}`;
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share({ title: title, text: shareMessage });
+                    } catch (err) {
+                        console.log('Share cancelled.');
+                    }
+                } else {
+                    // Fallback for desktops without native sharing
+                    navigator.clipboard.writeText(shareMessage).then(() => {
+                        showToast("📋 Event details copied to clipboard!");
+                    }).catch(err => {
+                        alert("Could not copy text.");
+                    });
+                }
+            });
+        });
+        
     </script>
 </body>
 </html>
