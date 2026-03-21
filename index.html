@@ -70,10 +70,15 @@
             border-radius: 50%;
         }
 
+        /* Upgraded Navbar Title */
         nav h1 {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            background: linear-gradient(45deg, var(--primary-color), #ec4899); 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-controls {
@@ -151,13 +156,15 @@
             gap: 2rem;
         }
 
-        /* Event Cards */
+        /* Event Cards (Upgraded for perfect alignment) */
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
+            display: flex; /* Makes the card flexible */
+            flex-direction: column;
         }
 
         .card-img {
@@ -171,9 +178,12 @@
             font-size: 1.2rem;
         }
 
-        .card-content { padding: 1.5rem; }
-        .card-title { font-size: 1.25rem; margin-bottom: 0.5rem; }
-        .card-date { color: var(--primary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem; }
+        .card-content { 
+            padding: 1.5rem; 
+            display: flex; /* Makes the inside of the card flexible */
+            flex-direction: column;
+            flex-grow: 1; /* Forces this section to fill all empty space */
+        }
         
         /* Modals */
         .modal-overlay {
@@ -231,6 +241,38 @@
         }
         
         .toast.show { bottom: 20px; }
+    
+        /* Countdown Timer UI */
+        .countdown-timer {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .time-box {
+            background-color: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 6px;
+            padding: 8px 5px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .time-box small {
+            font-size: 0.65rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+        }
 
         /* Animation States */
         .hidden-card {
@@ -243,7 +285,35 @@
             opacity: 1;
             transform: translateY(0);
         }
+    
+        /* Upgraded Hero Heading with Animation */
+        .hero h2 {
+            font-size: 3.5rem; 
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            
+            /* The Animated Gradient Magic */
+            background: linear-gradient(to right, var(--primary-color), #8b5cf6, #ec4899, var(--primary-color));
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShine 4s linear infinite; 
+        }
 
+        /* Adjust size for mobile phones */
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 2.5rem; }
+        }
+
+        /* The Animation Engine */
+        @keyframes textShine {
+            to {
+                background-position: 200% center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -262,7 +332,7 @@
     </nav>
 
     <header class="hero">
-        <h2 style="margin-bottom: 10px;">Discover Campus Events</h2>
+        <h2>Discover Campus Events</h2>
         <p>Find, register, and attend the best tech and cultural events at KCE-COEM, JALGAON.</p>
     </header>
 
@@ -272,9 +342,16 @@
                 <img src="techfest.jpeg" alt="Techno Storm 2K26" class="card-img">
                 <div class="card-content">
                     <h3 class="card-title">Techno Storm 2K26 -<br> UPCOMING 🕒 </h3>
-                    <p class="card-date">📅 April 06, 2026</p>
+                    <p class="card-date">📅 April 06, 2026 | 9:30 AM</p>
                     <p style="margin-bottom: 1rem; color: var(--text-light);">We are excited to invite students from your college to participate in our National Level Technical Event 🚀</p>
                     
+                    <div class="countdown-timer" id="technoCountdown">
+                        <div class="time-box"><span id="days">00</span><small>Days</small></div>
+                        <div class="time-box"><span id="hours">00</span><small>Hours</small></div>
+                        <div class="time-box"><span id="mins">00</span><small>Mins</small></div>
+                        <div class="time-box"><span id="secs">00</span><small>Secs</small></div>
+                    </div>
+
                     <div style="display: flex; gap: 8px; margin-top: 1rem;">
                         <button class="btn register-btn" data-event="Techno Storm 2K26" style="flex: 1;">Register Now</button>
                         <button class="btn-outline cal-btn" title="Add to Calendar" style="padding: 0.5rem 0.8rem; flex: 0 0 auto;" 
@@ -282,8 +359,9 @@
                             data-desc="National Level Technical Event hosted at KCES COEM." data-loc="KCES COEM, Jalgaon">📅</button>
                         <button class="btn-outline share-btn" title="Share Event" style="padding: 0.5rem 0.8rem; flex: 0 0 auto;" 
                             data-title="Techno Storm 2K26" data-date="April 06, 2026" data-desc="National Level Technical Event at KCE-COEM.">🔗</button>
-                    </div>
-                </div> </article>
+                   </div>
+                </div>
+            </article>
 
             <article class="card hidden-card">
                 <img src="yuvotsav.jpeg" alt="Yuvotsav 2K26" class="card-img">
@@ -291,7 +369,15 @@
                     <h3 class="card-title">Yuvotsav 2K26 -<br> ENDED 🚫</h3>
                     <p class="card-date">📅 March 09-12, 2026</p>
                     <p style="margin-bottom: 1rem; color: var(--text-light);">💫 Join us in the Upcoming Annual Carnival and stand a chance to win amazing prizes!</p>
-                    <button class="btn" style="background-color: #9ca3af; cursor: not-allowed;" disabled>Registration Closed</button>
+                    
+                    <div class="countdown-timer" style="opacity: 0.6;">
+                        <div class="time-box"><span>00</span><small>Days</small></div>
+                        <div class="time-box"><span>00</span><small>Hours</small></div>
+                        <div class="time-box"><span>00</span><small>Mins</small></div>
+                        <div class="time-box"><span>00</span><small>Secs</small></div>
+                    </div>
+
+                    <button class="btn" style="background-color: #9ca3af; cursor: not-allowed; margin-top: 1rem;" disabled>Registration Closed</button>
                 </div>
             </article>
 
@@ -300,8 +386,16 @@
                 <div class="card-content">
                     <h3 class="card-title">Sports Carnival 2K26-<br> ENDED 🚫</h3>
                     <p class="card-date">📅 March 05-10, 2026</p>
-                    <p style="margin-bottom: 1rem; color: var(--text-light);">🏅 Game On! You're Invited to Sports Carnival 2K26! Don't miss your chance to be a champion. Register now!</p>
-                    <button class="btn" style="background-color: #9ca3af; cursor: not-allowed;" disabled>Registration Closed</button>
+                    <p style="margin-bottom: 1rem; color: var(--text-light);">🏅 Game On! You're Invited to Sports Carnival 2K26! Don't miss your chance to be a champion.</p>
+                    
+                    <div class="countdown-timer" style="opacity: 0.6;">
+                        <div class="time-box"><span>00</span><small>Days</small></div>
+                        <div class="time-box"><span>00</span><small>Hours</small></div>
+                        <div class="time-box"><span>00</span><small>Mins</small></div>
+                        <div class="time-box"><span>00</span><small>Secs</small></div>
+                    </div>
+
+                    <button class="btn" style="background-color: #9ca3af; cursor: not-allowed; margin-top: 1rem;" disabled>Registration Closed</button>
                 </div>
             </article>
         </div>
@@ -503,6 +597,34 @@
             });
         });
         
+        // Live Countdown Engine (Target: April 06, 2026, 09:30:00)
+        const targetDate = new Date("April 06, 2026 09:30:00").getTime();
+        
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // If the countdown is finished, display a message
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("technoCountdown").innerHTML = 
+                    "<div style='width: 100%; text-align: center; color: #10b981; font-weight: bold; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 6px;'>🎉 Event is Live!</div>";
+                return;
+            }
+
+            // Time calculations for days, hours, minutes and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the results, using padStart to keep double digits (e.g., '09' instead of '9')
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("mins").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("secs").innerText = seconds.toString().padStart(2, '0');
+        }, 1000); // Updates every 1000 milliseconds (1 second)
+
     </script>
 </body>
 </html>
